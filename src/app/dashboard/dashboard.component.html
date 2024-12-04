@@ -1,0 +1,10 @@
+<div class="search-container">
+    <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" />
+    <button (click)="buscarProductos()">Buscar</button>
+  </div>
+  <div class="categories">
+    <button *ngFor="let categoria of categorias" (click)="buscarPorCategoria(categoria)">
+      {{ categoria }}
+    </button>
+  </div>
+  
