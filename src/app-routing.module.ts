@@ -5,7 +5,7 @@ import { RegisterComponent } from './app/register/register.component';
 import { DashboardComponent } from './app/dashboard/dashboard.component';
 import { CarritoComponent } from './app/carrito/carrito.component';
 import { MisVentasComponent } from './app/mis-ventas/mis-ventas.component'; 
-import { CategoryProductsComponent } from './app/category-products/category-products.component'; // Importa el nuevo componente
+import { GraciasComponent } from './app/gracias/gracias.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'mi-carrito', component: CarritoComponent },
   { path: 'mis-ventas', component: MisVentasComponent },
-  { path: 'category/:category', component: CategoryProductsComponent } 
+  { path: 'gracias', component: GraciasComponent } 
 ];
 
 @NgModule({

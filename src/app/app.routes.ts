@@ -4,7 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { MisVentasComponent } from './mis-ventas/mis-ventas.component';
-import { CategoryProductsComponent } from './category-products/category-products.component';
+import { GraciasComponent } from './gracias/gracias.component'; 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,5 +13,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'mi-carrito', component: CarritoComponent },
   { path: 'mis-ventas', component: MisVentasComponent },
-  { path: 'category/:category', component: CategoryProductsComponent }
+  { path: 'gracias', component: GraciasComponent }, 
 ];

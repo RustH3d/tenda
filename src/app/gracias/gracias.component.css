@@ -1,0 +1,50 @@
+.gracias-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .gracias-message {
+    text-align: center;
+  }
+  
+  .gracias-message h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .gracias-message p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+  }
+  
+  .confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ffcc00;
+    animation: confetti-fall linear infinite;
+    opacity: 0.8;
+  }
+  
+  @keyframes confetti-fall {
+    to {
+      transform: translateY(100vh) rotateZ(360deg);
+      opacity: 0;
+    }
+  }
+  

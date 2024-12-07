@@ -4,9 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const cors = require('cors');
-const multer = require('multer'); // Importar multer para manejar la subida de archivos
+const multer = require('multer');
 const path = require('path');
-
 
 const pool = new Pool({
   user: 'postgres',
@@ -25,17 +24,16 @@ app.use(cors({
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
 // Configurar bodyParser para leer JSON
 app.use(bodyParser.json());
 
 // Configuración de multer para subir imágenes
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, 'uploads')); // Usar path.join para asegurar la ruta correcta
+    cb(null, path.join(__dirname, 'uploads'));
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Guardar la imagen con un nombre único
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 
@@ -61,7 +59,7 @@ const SECRET_KEY = 'your_secret_key'; // Clave secreta para JWT
 
 // Ruta para registrar un nuevo usuario
 app.post('/users/register', async (req, res) => {
-  console.log('Registro recibido:', req.body); // Verifica los datos que llegan
+  console.log('Registro recibido:', req.body);
   try {
     const { username, password, email } = req.body;
 
@@ -96,8 +94,8 @@ app.post('/users/login', async (req, res) => {
     // Verificar las credenciales
     if (user && await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
-        { id: user.id, username: user.username }, 
-        SECRET_KEY, 
+        { id: user.id, username: user.username },
+        SECRET_KEY,
         { expiresIn: '1h' }
       );
       res.json({ token });
@@ -122,11 +120,11 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 // Crear un nuevo producto
 app.post('/products', async (req, res) => {
-  const { name, description, price, category, user_id, imageUrl } = req.body; 
+  const { name, description, price, category, user_id, imageUrl } = req.body;
   try {
     const result = await pool.query(
       'INSERT INTO products (name, description, price, category, user_id, imageUrl) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [name, description, price, category, user_id, imageUrl] 
+      [name, description, price, category, user_id, imageUrl]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -135,15 +133,18 @@ app.post('/products', async (req, res) => {
   }
 });
 
-// Obtener productos por categoría
+// Obtener productos con filtrado por categoría o término de búsqueda
 app.get('/products', async (req, res) => {
-  const { category } = req.query;
+  const { category, search } = req.query;
   let query = 'SELECT * FROM products';
   const queryParams = [];
 
   if (category) {
     queryParams.push(category);
     query += ` WHERE category = $${queryParams.length}`;
+  } else if (search) {
+    queryParams.push(`%${search}%`);
+    query += ` WHERE name ILIKE $${queryParams.length}`;
   }
 
   try {
@@ -155,7 +156,6 @@ app.get('/products', async (req, res) => {
   }
 });
 
-
 // Ruta para obtener 5 productos aleatorios
 app.get('/products/random', async (req, res) => {
   try {
@@ -166,8 +166,6 @@ app.get('/products/random', async (req, res) => {
     res.status(500).send('Error fetching random products');
   }
 });
-
-
 
 // Actualizar un producto
 app.put('/products/:id', async (req, res) => {
@@ -194,26 +192,6 @@ app.delete('/products/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting product:', error);
     res.status(500).send('Error deleting product');
-  }
-});
-
-// Obtener productos con filtrado por término de búsqueda exacto
-app.get('/products', async (req, res) => {
-  const { search } = req.query;
-  let query = 'SELECT * FROM products';
-  const queryParams = [];
-
-  if (search) {
-    queryParams.push(`%${search}%`);
-    query += ` WHERE name ILIKE $${queryParams.length}`;
-  }
-
-  try {
-    const result = await pool.query(query, queryParams);
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).send('Error fetching products');
   }
 });
 

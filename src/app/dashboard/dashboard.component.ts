@@ -16,18 +16,10 @@ import { Subject } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   searchTerm: string = '';
-  selectedCategory: string = '';
   productos: any[] = [];
   productosFiltrados: any[] = [];
   filteredProducts: any[] = [];
   carrito: any[] = [];
-  categories = [
-    { name: 'Electrónica' },
-    { name: 'Ropa' },
-    { name: 'Hogar' },
-    { name: 'Libros' },
-    { name: 'Juguetes' }
-  ];
   private searchTerms = new Subject<string>();
 
   constructor(private productService: ProductService, private authService: AuthService, private router: Router) {}
@@ -78,14 +70,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  filtrarPorCategoria(): void {
-    if (this.selectedCategory === '') {
-      this.productosFiltrados = this.productos;
-    } else {
-      this.router.navigate(['/category', this.selectedCategory]);
-    }
+  filtrarPorCategoria(category: string): void {
+    this.productService.getProductsByCategory(category).subscribe(data => {
+      this.productosFiltrados = data;
+    }, error => {
+      console.error('Error al obtener productos por categoría:', error);
+    });
   }
-  
 
   anadirAlCarrito(producto: any): void {
     if (!this.authService.isLoggedIn()) {

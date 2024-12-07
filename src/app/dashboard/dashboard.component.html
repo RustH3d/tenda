@@ -1,14 +1,18 @@
 <div class="header">
-  <button (click)="irAMisVentas()">Mis Ventas</button>
-  <button (click)="irAMiCarrito()">Mi Carrito</button>
+  <button class="button" (click)="irAMisVentas()">Mis Ventas</button>
+  <button class="button" (click)="irAMiCarrito()">Mi Carrito</button>
 </div>
 
 <div class="search-container">
   <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (input)="buscarProductos()" />
-  <select [(ngModel)]="selectedCategory" (change)="filtrarPorCategoria()">
-    <option value="">Todas las Categorías</option>
-    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-  </select>
+</div>
+
+<div class="category-buttons">
+  <button class="button" (click)="filtrarPorCategoria('Electrónica')">Electrónica</button>
+  <button class="button" (click)="filtrarPorCategoria('Ropa')">Ropa</button>
+  <button class="button" (click)="filtrarPorCategoria('Libros')">Libros</button>
+  <button class="button" (click)="filtrarPorCategoria('Juguetes')">Juguetes</button>
+  <button class="button" (click)="filtrarPorCategoria('Carros')">Carros</button>
 </div>
 
 <div class="product-results" *ngIf="productosFiltrados.length > 0 && searchTerm === ''">

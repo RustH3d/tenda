@@ -7,11 +7,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000'; // URL del backend
+  private readonly apiUrl = 'http://localhost:3000'; // URL del backend
 
   constructor(private http: HttpClient) {}
-
-  
 
   getProducts(searchTerm: string = ''): Observable<Product[]> {
     const url = `${this.apiUrl}/products?search=${searchTerm}`;
@@ -21,44 +19,27 @@ export class ProductService {
   }
 
   getAllProducts(): Observable<Product[]> {
-    const url = `${this.apiUrl}/products`;
-    return this.http.get<Product[]>(url).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  getUserProducts(): Observable<Product[]> {
-    const url = `${this.apiUrl}/user/products`;
-    return this.http.get<Product[]>(url).pipe(
+    return this.http.get<Product[]>(`${this.apiUrl}/products`).pipe(
       catchError(this.handleError)
     );
   }
 
   getRandomProducts(): Observable<Product[]> {
-    const url = `${this.apiUrl}/products/random`;
-    return this.http.get<Product[]>(url).pipe(
+    return this.http.get<Product[]>(`${this.apiUrl}/products/random`).pipe(
       catchError(this.handleError)
     );
   }
-  
+
   getProductsByCategory(category: string): Observable<Product[]> {
     const url = `${this.apiUrl}/products?category=${category}`;
     return this.http.get<Product[]>(url).pipe(
       catchError(this.handleError)
     );
   }
-  
 
   addProduct(product: Product): Observable<Product> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Product>(`${this.apiUrl}/products`, product, { headers }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  deleteProduct(productId: number): Observable<void> {
-    const url = `${this.apiUrl}/products/${productId}`;
-    return this.http.delete<void>(url).pipe(
       catchError(this.handleError)
     );
   }

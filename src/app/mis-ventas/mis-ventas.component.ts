@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -23,23 +22,11 @@ export class MisVentasComponent implements OnInit {
   };
   selectedFile: File | null = null;
   showForm = false;
-  userProducts: any[] = [];
 
   constructor(private productService: ProductService, private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.getUserProducts();
-  }
-
-  getUserProducts(): void {
-    this.productService.getUserProducts().subscribe(
-      data => {
-        this.userProducts = data;
-      },
-      error => {
-        console.error('Error al obtener productos del usuario:', error);
-      }
-    );
+    // Eliminado getUserProducts, ya que no es necesario
   }
 
   toggleForm(): void {
@@ -63,7 +50,6 @@ export class MisVentasComponent implements OnInit {
           this.productService.addProduct(this.product).subscribe(
             (data) => {
               console.log('Producto subido exitosamente:', data);
-              this.getUserProducts();
               this.product = {
                 name: '',
                 description: '',
@@ -88,17 +74,5 @@ export class MisVentasComponent implements OnInit {
 
   editProduct(product: any): void {
     // Aquí puedes implementar la lógica para editar el producto
-  }
-
-  deleteProduct(productId: number): void {
-    this.productService.deleteProduct(productId).subscribe(
-      () => {
-        console.log('Producto eliminado exitosamente');
-        this.getUserProducts();
-      },
-      error => {
-        console.error('Error al eliminar el producto:', error);
-      }
-    );
   }
 }
