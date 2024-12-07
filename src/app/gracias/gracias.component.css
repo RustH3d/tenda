@@ -3,48 +3,30 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Fondo gris claro */
     color: #343a40;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .gracias-message {
     text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .gracias-message h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
+    color: #007bff; /* Azul primario */
   }
   
   .gracias-message p {
     font-size: 1.2em;
     margin-bottom: 40px;
-  }
-  
-  .confetti {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  
-  .confetti-piece {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #ffcc00;
-    animation: confetti-fall linear infinite;
-    opacity: 0.8;
-  }
-  
-  @keyframes confetti-fall {
-    to {
-      transform: translateY(100vh) rotateZ(360deg);
-      opacity: 0;
-    }
+    color: #6c757d; /* Gris oscuro */
   }
   

@@ -17,7 +17,6 @@ import { Subject } from 'rxjs';
 export class DashboardComponent implements OnInit {
   searchTerm: string = '';
   productos: any[] = [];
-  productosFiltrados: any[] = [];
   filteredProducts: any[] = [];
   carrito: any[] = [];
   private searchTerms = new Subject<string>();
@@ -64,17 +63,8 @@ export class DashboardComponent implements OnInit {
   obtenerProductosAleatorios(): void {
     this.productService.getRandomProducts().subscribe(data => {
       this.productos = data;
-      this.productosFiltrados = data;
     }, error => {
       console.error('Error al obtener productos aleatorios:', error);
-    });
-  }
-
-  filtrarPorCategoria(category: string): void {
-    this.productService.getProductsByCategory(category).subscribe(data => {
-      this.productosFiltrados = data;
-    }, error => {
-      console.error('Error al obtener productos por categoría:', error);
     });
   }
 
@@ -86,5 +76,6 @@ export class DashboardComponent implements OnInit {
     this.carrito.push(producto);
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
     console.log('Producto añadido al carrito:', producto);
+    alert('Producto añadido al carrito exitosamente!'); 
   }
 }

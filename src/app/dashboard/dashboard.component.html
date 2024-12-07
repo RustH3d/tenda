@@ -7,16 +7,8 @@
   <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (input)="buscarProductos()" />
 </div>
 
-<div class="category-buttons">
-  <button class="button" (click)="filtrarPorCategoria('Electrónica')">Electrónica</button>
-  <button class="button" (click)="filtrarPorCategoria('Ropa')">Ropa</button>
-  <button class="button" (click)="filtrarPorCategoria('Libros')">Libros</button>
-  <button class="button" (click)="filtrarPorCategoria('Juguetes')">Juguetes</button>
-  <button class="button" (click)="filtrarPorCategoria('Carros')">Carros</button>
-</div>
-
-<div class="product-results" *ngIf="productosFiltrados.length > 0 && searchTerm === ''">
-  <div *ngFor="let producto of productosFiltrados" class="product-card">
+<div class="product-results" *ngIf="productos.length > 0 && searchTerm === ''">
+  <div *ngFor="let producto of productos" class="product-card">
     <img [src]="producto.imageUrl" alt="{{ producto.name }}" class="product-image">
     <h3>{{ producto.name }}</h3>
     <p>{{ producto.description }}</p>
