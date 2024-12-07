@@ -1,10 +1,38 @@
+<div class="header">
+  <button (click)="irAMisVentas()">Mis Ventas</button>
+  <button (click)="irAMiCarrito()">Mi Carrito</button>
+</div>
+
 <div class="search-container">
-    <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" />
-    <button (click)="buscarProductos()">Buscar</button>
+  <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (input)="buscarProductos()" />
+  <select [(ngModel)]="selectedCategory" (change)="filtrarPorCategoria()">
+    <option value="">Todas las Categorías</option>
+    <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+  </select>
+</div>
+
+<div class="product-results" *ngIf="productosFiltrados.length > 0 && searchTerm === ''">
+  <div *ngFor="let producto of productosFiltrados" class="product-card">
+    <img [src]="producto.imageUrl" alt="{{ producto.name }}" class="product-image">
+    <h3>{{ producto.name }}</h3>
+    <p>{{ producto.description }}</p>
+    <p>Precio: {{ producto.price | currency }}</p>
+    <p>Categoría: {{ producto.category }}</p>
+    <button (click)="anadirAlCarrito(producto)">Añadir al Carrito</button>
   </div>
-  <div class="categories">
-    <button *ngFor="let categoria of categorias" (click)="buscarPorCategoria(categoria)">
-      {{ categoria }}
-    </button>
+</div>
+
+<div class="product-results" *ngIf="filteredProducts.length > 0 && searchTerm !== ''">
+  <div *ngFor="let producto of filteredProducts" class="product-card">
+    <img [src]="producto.imageUrl" alt="{{ producto.name }}" class="product-image">
+    <h3>{{ producto.name }}</h3>
+    <p>{{ producto.description }}</p>
+    <p>Precio: {{ producto.price | currency }}</p>
+    <p>Categoría: {{ producto.category }}</p>
+    <button (click)="anadirAlCarrito(producto)">Añadir al Carrito</button>
   </div>
-  
+</div>
+
+<div *ngIf="filteredProducts.length === 0 && searchTerm !== ''">
+  <p>No se encontraron productos.</p>
+</div>

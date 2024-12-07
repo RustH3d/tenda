@@ -1,0 +1,18 @@
+<div class="category-products-container">
+  <h2>Productos en la Categoría: {{ category }}</h2>
+
+  <div class="product-results">
+    <div *ngFor="let producto of productos" class="product-card">
+      <img [src]="producto.imageUrl" alt="{{ producto.name }}" class="product-image">
+      <h3>{{ producto.name }}</h3>
+      <p>{{ producto.description }}</p>
+      <p>Precio: {{ producto.price }}</p>
+      <p>Categoría: {{ producto.category }}</p>
+      <button (click)="anadirAlCarrito(producto)">Añadir al Carrito</button>
+    </div>
+  </div>
+
+  <div *ngIf="productos.length === 0">
+    <p>No se encontraron productos en esta categoría.</p>
+  </div>
+</div>

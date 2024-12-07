@@ -1,101 +1,111 @@
-/* Estilos para el formulario de login */
-.login-container {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #343a40;
+  }
+  
+  .login-container {
     max-width: 400px;
     padding: 30px;
-    background-color: #0c0d1b; /* Fondo oscuro para el formulario */
+    background-color: #ffffff;
     border-radius: 10px;
-    border: 5px solid #33ff33; /* Borde verde retro */
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Efecto de brillo */
+    border: 1px solid #ced4da;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    color: #e0f7fa; /* Color de texto claro */
-}
-
-h2 {
-    font-size: 2.5rem;
-    color: #33ff33; /* Verde retro */
+    color: #343a40;
+    margin: 20px auto; /* Centrar el contenedor */
+  }
+  
+  .login-container h2 {
+    font-size: 2rem;
+    color: #007bff;
     margin-bottom: 20px;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.8); /* Brillo verde */
-}
-
-form {
+  }
+  
+  .login-container form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-label {
+  }
+  
+  .login-container label {
     display: block;
-    margin-bottom: 8px; /* Espacio entre label y el input */
-    color: #33ff33; /* Verde retro */
+    margin-bottom: 8px;
+    color: #343a40;
     font-weight: bold;
     text-align: left;
     font-size: 1rem;
-}
-
-input[type="text"],
-input[type="password"] {
+  }
+  
+  .login-container input[type="text"],
+  .login-container input[type="email"],
+  .login-container input[type="password"] {
     padding: 12px;
-    border: 1px solid #33ff33; /* Borde verde retro */
+    border: 1px solid #ced4da;
     border-radius: 5px;
-    background-color: #1a1a1a; /* Fondo oscuro para inputs */
-    color: #33ff33; /* Texto verde retro */
+    background-color: #f8f9fa;
+    color: #343a40;
     font-size: 1.2rem;
     transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #00ff00; /* Verde brillante */
+  }
+  
+  .login-container input[type="text"]:focus,
+  .login-container input[type="email"]:focus,
+  .login-container input[type="password"]:focus {
+    border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 5px #00ff00; /* Brillo verde */
-}
-
-button {
+    box-shadow: 0 0 5px #007bff;
+  }
+  
+  .login-container button {
     padding: 12px;
-    background-color: #33ff33; /* Verde brillante */
-    color: #1a1a1a; /* Texto oscuro */
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
     font-size: 1.1rem;
-}
-
-button:hover {
-    background-color: #00ff00; /* Verde más brillante */
-}
-
-.message {
+  }
+  
+  .login-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-container .message {
     margin-top: 10px;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
     font-size: 0.9rem;
-}
-
-.message.error {
-    background-color: #ff3b3b; /* Rojo para errores */
+  }
+  
+  .login-container .message.error {
+    background-color: #ff3b3b;
     color: #fff;
-}
-
-.message.success {
-    background-color: #33ff33; /* Verde para éxito */
-    color: #1a1a1a;
-}
-
-.go-to-register {
+  }
+  
+  .login-container .message.success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .login-container .go-to-register {
     margin-top: 20px;
-    color: #33ff33; /* Verde retro */
-}
-
-.go-to-register a {
-    color: #33ff33; /* Verde retro */
+    color: #007bff;
+  }
+  
+  .login-container .go-to-register a {
+    color: #007bff;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
-}
-
-.go-to-register a:hover {
-    color: #00ff00; /* Verde más brillante en hover */
-}
+  }
+  
+  .login-container .go-to-register a:hover {
+    color: #0056b3;
+  }
+  

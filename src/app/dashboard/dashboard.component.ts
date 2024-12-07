@@ -1,25 +1,99 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { ProductService } from '../product.service';
+import { AuthService } from '../auth.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FormsModule, CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  imports: [FormsModule, CommonModule]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   searchTerm: string = '';
-  categorias: string[] = ['Electrónica', 'Moda', 'Hogar', 'Juguetes', 'Deportes'];
+  selectedCategory: string = '';
+  productos: any[] = [];
+  productosFiltrados: any[] = [];
+  filteredProducts: any[] = [];
+  carrito: any[] = [];
+  categories = [
+    { name: 'Electrónica' },
+    { name: 'Ropa' },
+    { name: 'Hogar' },
+    { name: 'Libros' },
+    { name: 'Juguetes' }
+  ];
+  private searchTerms = new Subject<string>();
 
-  buscarProductos() {
-    console.log('Buscando productos:', this.searchTerm);
-    // Aquí iría la lógica para buscar productos por el término de búsqueda
+  constructor(private productService: ProductService, private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.obtenerProductosAleatorios();
+      this.configurarBusqueda();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
-  buscarPorCategoria(categoria: string) {
-    console.log('Buscando productos en la categoría:', categoria);
-    // Aquí iría la lógica para buscar productos por categoría
+  configurarBusqueda(): void {
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.productService.getProducts(term))
+    ).subscribe(data => {
+      this.filteredProducts = data;
+    }, error => {
+      console.error('Error al buscar productos:', error);
+    });
+  }
+
+  irAMisVentas(): void {
+    this.router.navigate(['/mis-ventas']);
+  }
+
+  irAMiCarrito(): void {
+    this.router.navigate(['/mi-carrito']);
+  }
+
+  buscarProductos(): void {
+    if (this.searchTerm === '') {
+      this.filteredProducts = [];
+    } else {
+      this.searchTerms.next(this.searchTerm);
+    }
+  }
+
+  obtenerProductosAleatorios(): void {
+    this.productService.getRandomProducts().subscribe(data => {
+      this.productos = data;
+      this.productosFiltrados = data;
+    }, error => {
+      console.error('Error al obtener productos aleatorios:', error);
+    });
+  }
+
+  filtrarPorCategoria(): void {
+    if (this.selectedCategory === '') {
+      this.productosFiltrados = this.productos;
+    } else {
+      this.router.navigate(['/category', this.selectedCategory]);
+    }
+  }
+  
+
+  anadirAlCarrito(producto: any): void {
+    if (!this.authService.isLoggedIn()) {
+      return;
+    }
+
+    this.carrito.push(producto);
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
+    console.log('Producto añadido al carrito:', producto);
   }
 }
