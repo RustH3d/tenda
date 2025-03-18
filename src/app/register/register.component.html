@@ -1,35 +1,99 @@
-<div class="register-container">
-    <h2>Registro de nuevo usuario</h2>
-  
-    <!-- Formulario de registro -->
-    <form (ngSubmit)="register()">
-      <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" name="username" [(ngModel)]="username" required />
-      </div>
+<!-- <div class="register-container">
+  <h2>Registro de nuevo usuario</h2>
 
-      <div class="form-group">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="email" required />
+ 
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    
+    <div class="form-group">
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required #emailField="ngModel" />
+      <div *ngIf="emailField.invalid && emailField.touched" class="error">
+        El correo electrónico es requerido.
       </div>
-  
-      <div class="form-group">
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" [(ngModel)]="password" required />
-      </div>
-  
-      <div class="form-group">
-        <button type="submit">Registrarse</button>
-      </div>
-    </form>
-  
-    <!-- Enlace para ir a la página de login -->
-    <div class="login-link">
-      <button (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión aquí</button>
     </div>
-  
-    <!-- Mensaje de error o éxito -->
-    <div *ngIf="message" [ngClass]="{ 'error': isError, 'success': !isError }">
-      {{ message }}
+
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required #passwordField="ngModel" />
+      <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+        La contraseña es requerida.
+      </div>
     </div>
+
+    <div class="form-group">
+      <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+    </div>
+  </form>
+
+ 
+  <div class="login-link">
+    <button (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión aquí</button>
+  </div>
+
+
+  <div *ngIf="message" [ngClass]="{ 'error': isError, 'success': !isError }">
+    {{ message }}
+  </div>
+</div> -->
+
+<div class="register-container">
+  <h2>Registro de nuevo usuario</h2>
+
+  <!-- Formulario de registro -->
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    
+    <div class="form-group">
+      <label for="firstName">Nombre:</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required #firstNameField="ngModel" />
+      <div *ngIf="firstNameField.invalid && firstNameField.touched" class="error">
+        El nombre es requerido.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Apellido:</label>
+      <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required #lastNameField="ngModel" />
+      <div *ngIf="lastNameField.invalid && lastNameField.touched" class="error">
+        El apellido es requerido.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Teléfono:</label>
+      <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required #phoneField="ngModel" />
+      <div *ngIf="phoneField.invalid && phoneField.touched" class="error">
+        El teléfono es requerido.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required #emailField="ngModel" />
+      <div *ngIf="emailField.invalid && emailField.touched" class="error">
+        El correo electrónico es requerido.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required #passwordField="ngModel" />
+      <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+        La contraseña es requerida.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+    </div>
+  </form>
+
+  <!-- Enlace para ir a la página de login -->
+  <div class="login-link">
+    <button (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión aquí</button>
+  </div>
+
+  <!-- Mensaje de error o éxito -->
+  <div *ngIf="message" [ngClass]="{ 'error': isError, 'success': !isError }">
+    {{ message }}
+  </div>
 </div>

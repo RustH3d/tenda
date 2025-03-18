@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -15,7 +15,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: #343a40;
-    margin: 20px auto; /* Centrar el contenedor */
+    margin: 20px auto; 
   }
   
   .register-container h2 {
@@ -108,4 +108,118 @@ body {
   .register-container .go-to-login a:hover {
     color: #0056b3;
   }
+   */
+
+   body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #343a40;
+  }
   
+  .register-container {
+    max-width: 400px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #343a40;
+    margin: 20px auto; /* Centrar el contenedor */
+  }
+  
+  .register-container h2 {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-container label {
+    display: block;
+    margin-bottom: 6px;
+    color: #343a40;
+    font-weight: bold;
+    text-align: left;
+    font-size: 1rem;
+  }
+  
+  .register-container input[type="text"],
+  .register-container input[type="email"],
+  .register-container input[type="password"],
+  .register-container input[type="tel"] { /* Se agrega input de teléfono */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-size: 1.1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .register-container input[type="text"]:focus,
+  .register-container input[type="email"]:focus,
+  .register-container input[type="password"]:focus,
+  .register-container input[type="tel"]:focus { /* Se agrega efecto de foco para teléfono */
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px #007bff;
+  }
+  
+  .register-container button {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 1.1rem;
+  }
+  
+  .register-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .register-container .message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .register-container .message.error {
+    background-color: #ff3b3b;
+    color: #fff;
+  }
+  
+  .register-container .message.success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .register-container .go-to-login {
+    margin-top: 20px;
+    color: #007bff;
+  }
+  
+  .register-container .go-to-login a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .register-container .go-to-login a:hover {
+    color: #0056b3;
+  }

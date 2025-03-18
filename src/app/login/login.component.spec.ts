@@ -1,23 +1,44 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';  // Servicio de autenticación
 
-import { LoginComponent } from './login.component';
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    
+  ]
+})
+export class LoginComponent {
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';  // Propiedad para mostrar el mensaje de error
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LoginComponent]
-    })
-    .compileComponents();
+  // Método de login
+  login() {
+    this.errorMessage = '';  // Resetea el mensaje de error al intentar loguear
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        console.log('Login exitoso', response);
+        this.router.navigate(['/module']);  // Redirige al módulo principal
+      },
+      error: (error) => {
+        console.error('Error en el login:', error);
+        this.errorMessage = 'Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.';  // Muestra el mensaje de error
+      }
+    });
+  }
 
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  // Método para redirigir al registro
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
+}

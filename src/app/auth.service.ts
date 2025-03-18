@@ -2,37 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface AuthResponse {
-  token: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; // URL del backend
+  private apiUrl = 'http://localhost:3000/users'; // Base URL del backend
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<AuthResponse> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<AuthResponse>(`${this.apiUrl}/users/login`, { username, password }, { headers });
+  // **Método de Login**
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { 
+      headers: this.headers, 
+      withCredentials: true 
+    });
   }
 
-  register(username: string, password: string, email: string): Observable<{ message: string }> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<{ message: string }>(`${this.apiUrl}/users/register`, { username, password, email });
+  // **Método de Registro**
+  register(email: string, password: string, nombre: string, apellido: string, telefono: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/register`,
+      { email, password, nombre, apellido, telefono },
+      { headers: this.headers, withCredentials: true } // Ahora incluye `withCredentials`
+    );
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
+  // **Método de Logout corregido**
+  logout(): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/logout`, {}, { withCredentials: true });
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  // **Verificar si el usuario está autenticado**
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/isLoggedIn`, { withCredentials: true });
   }
 }

@@ -1,17 +1,16 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CarritoComponent } from './carrito/carrito.component';
-import { MisVentasComponent } from './mis-ventas/mis-ventas.component';
-import { GraciasComponent } from './gracias/gracias.component'; 
+import { ModuleComponent } from './module/module.component';
+import { SecurityComponent } from './security/security.component'; // Importación del componente Security
+import { BibliotecaComponent } from './biblioteca/biblioteca.component'; // Importación del componente Biblioteca
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'mi-carrito', component: CarritoComponent },
-  { path: 'mis-ventas', component: MisVentasComponent },
-  { path: 'gracias', component: GraciasComponent }, 
+  { path: 'module', component: ModuleComponent },
+  { path: 'security', component: SecurityComponent }, // Ruta para Security
+  { path: 'biblioteca', component: BibliotecaComponent }, // Ruta para Biblioteca
 ];
+

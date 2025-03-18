@@ -15,18 +15,16 @@ import { AuthService } from '../auth.service';  // Importar el servicio de auten
   ]
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';  // Se cambió de "username" a "email"
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   // Método de login
   login() {
-    this.authService.login(this.username, this.password).subscribe(response => {
-      // Si la autenticación es exitosa, redirigir al usuario
+    this.authService.login(this.email, this.password).subscribe(response => {
       console.log('Login exitoso', response);
-      localStorage.setItem('token', response.token);  // Guardar el token si es necesario
-      this.router.navigate(['/dashboard']);  // Redirige a la página principal de usuario
+      this.router.navigate(['/module']);  // Redirige a la página principal de usuario
     }, error => {
       console.error('Error en el login:', error);
     });

@@ -1,0 +1,40 @@
+<div class="security-container">
+  <h2>Gestión de Seguridad</h2>
+
+  <!-- Selección de Perfil -->
+  <div class="profile-selection">
+    <label for="profileSelect">Seleccionar Perfil:</label>
+    <select id="profileSelect" [(ngModel)]="selectedProfile" (change)="onProfileChange()">
+      <option *ngFor="let profile of profiles" [value]="profile">{{profile.name}}</option>
+    </select>
+  </div>
+
+  <!-- Selección de Módulo -->
+  <div *ngIf="selectedProfile" class="module-selection">
+    <label for="moduleSelect">Seleccionar Módulo:</label>
+    <select id="moduleSelect" [(ngModel)]="selectedModule" (change)="onModuleChange()">
+      <option *ngFor="let module of modules" [value]="module">{{module}}</option>
+    </select>
+  </div>
+
+  <!-- Selección de Objeto de Negocios -->
+  <div *ngIf="selectedModule" class="object-selection">
+    <label for="objectSelect">Seleccionar Objeto de Negocios:</label>
+    <select id="objectSelect" [(ngModel)]="selectedObject" (change)="onObjectChange()">
+      <option *ngFor="let object of businessObjects[selectedModule]" [value]="object">{{object.name}}</option>
+    </select>
+  </div>
+
+  <!-- Permisos de Métodos -->
+  <div *ngIf="selectedObject" class="permissions">
+    
+    <div *ngFor="let method of methods [selectedObject.name]">
+      <label>
+        <input type="checkbox" [(ngModel)]="method.selected"> {{method.name}}
+      </label>
+    </div>
+  </div>
+
+  <!-- Botón de guardar -->
+  <button id="savePermissions" (click)="savePermissions()">Guardar Permisos</button>
+</div>

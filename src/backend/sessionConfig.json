@@ -1,0 +1,8 @@
+{
+    "secret": "4N0R4",
+    "resave": false,
+    "saveUninitialized": false,
+    "cookie": {
+      "maxAge": 120000
+    }
+  }
